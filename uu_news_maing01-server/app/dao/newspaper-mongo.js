@@ -2,9 +2,7 @@
 const { UuObjectDao } = require("uu_appg01_server").ObjectStore;
 
 class NewspaperMongo extends UuObjectDao {
-
-  async createSchema(){
-  }
+  async createSchema() {}
 
   async create(uuObject) {
     return await super.insertOne(uuObject);
@@ -13,30 +11,30 @@ class NewspaperMongo extends UuObjectDao {
   async get(uuObject) {
     let filter = {
       id: uuObject.id,
-      awid: uuObject.awid
-    }
+      awid: uuObject.awid,
+    };
     return await super.findOne(filter);
   }
 
   async getByName(uuObject) {
     let filter = {
       awid: uuObject.awid,
-      name: uuObject.name
-    }
+      name: uuObject.name,
+    };
     return await super.findOne(filter);
   }
 
   async getByUrl(uuObject) {
     let filter = {
       awid: uuObject.awid,
-      newspaperUrl: uuObject.newspaperUrl
-    }
+      newspaperUrl: uuObject.newspaperUrl,
+    };
     return await super.findOne(filter);
   }
 
-  async update(uuObject){
+  async update(uuObject) {
     let filter = {
-      id: uuObject.id
+      id: uuObject.id,
     };
     return await super.findOneAndUpdate(filter, uuObject, "NONE");
   }
@@ -44,8 +42,8 @@ class NewspaperMongo extends UuObjectDao {
   async delete(uuObject) {
     let filter = {
       id: uuObject.id,
-      awid: uuObject.awid
-    }
+      awid: uuObject.awid,
+    };
     return await super.deleteOne(filter);
   }
 
@@ -55,7 +53,6 @@ class NewspaperMongo extends UuObjectDao {
     };
     return await super.find(filter);
   }
-
 }
 
 module.exports = NewspaperMongo;

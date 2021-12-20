@@ -26,12 +26,11 @@ export const ArticlesLoader = createComponent({
 
   //@@viewOn:render
   render(props) {
-
     const dataListResult = useDataList({
       handlerMap: {
         load: Calls.articleList,
         create: Calls.articleCreate,
-        // load: Calls.topicIdList
+        topicIdList: Calls.topicList,
       },
     });
 

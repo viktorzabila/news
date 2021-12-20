@@ -5,6 +5,7 @@ import Uu5Tiles from "uu5tilesg02";
 import Config from "../config/config";
 import AuthorsCustomTile from "./author-custom-tile";
 import useAuthors from "./context/use-authors";
+import Lsi from "../../config/lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -13,7 +14,6 @@ const STATICS = {
   nestingLevel: "bigBoxCollection",
   //@@viewOff:statics
 };
-
 
 export const AuthorsTiles = createVisualComponent({
   ...STATICS,
@@ -30,11 +30,10 @@ export const AuthorsTiles = createVisualComponent({
 
   render(props) {
     //@@viewOn:hooks
-    const { data, handlerMap: listHandlerMap } = useAuthors();
+    const { data } = useAuthors();
     //@@viewOff:hooks
 
     //@@viewOn:private
-
 
     //@@viewOff:private
     //@@viewOn:interface
@@ -45,8 +44,11 @@ export const AuthorsTiles = createVisualComponent({
       <div>
         <Uu5Tiles.ControllerProvider data={data}>
           <UU5.Bricks.Container>
-            <Uu5Tiles.Grid tileHeight={"row"} tileMinWidth={1000} tileMaxWidth={1600} tileSpacing={20} rowSpacing={20}>
-              <AuthorsCustomTile  />
+            <UU5.Bricks.Header level={3}>
+              <UU5.Bricks.Lsi lsi={Lsi.author.header} />
+            </UU5.Bricks.Header>
+            <Uu5Tiles.Grid tileHeight={"auto"} tileMinWidth={1000} tileMaxWidth={1600} tileSpacing={40} rowSpacing={40}>
+              <AuthorsCustomTile />
             </Uu5Tiles.Grid>
           </UU5.Bricks.Container>
         </Uu5Tiles.ControllerProvider>

@@ -1,7 +1,7 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const PolygonsTestHelper = require("../polygons-test-helper.js");
 
-const CMD = "newspaper/delete";
+const CMD = "newspaper/update";
 afterAll(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.teardown();
@@ -14,7 +14,6 @@ beforeAll(async () => {
   let session = await TestHelper.login("AwidLicenseOwner", false, false);
 
   let dtoIn = {
-    id: "61bef6cd07cf04481cbbdd3a",
     uuAppProfileAuthorities: "urn:uu:GGALL",
   };
   await TestHelper.executePostCommand("sys/uuAppWorkspace/init", dtoIn, session);
@@ -25,11 +24,14 @@ describe("Testing the list/get uuCmd...", () => {
     let session = await TestHelper.login("AwidLicenseOwner", false, false);
     console.log("five");
     let helpingVar = await TestHelper.executePostCommand("newspaper/create", {
-      name: "Newspaper 4",
-      newspaperUrl: "https://www.youtube.com/2",
+      name: "topic1",
+      newspaperUrl: "topicSurname2",
     });
-    console.log({ ...helpingVar });
-    let result = await TestHelper.executePostCommand("newspaper/delete", { id: helpingVar.id }, session);
+    let result = await TestHelper.executePostCommand(
+      "newspaper/update",
+      { id: helpingVar.id, name: "Newspaper 3", newspaperUrl: "https://ru.wikipedia.org/wiki" },
+      session
+    );
     expect(result.status).toEqual(200);
     expect(result.data.uuAppErrorMap).toBeDefined();
   });

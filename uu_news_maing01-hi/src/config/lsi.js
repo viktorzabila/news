@@ -4,6 +4,24 @@ const Lsi = {
     en: "Application uuNews",
   },
 
+  topic: {
+    header: {
+      en: "Topic",
+    },
+  },
+
+  newspaper: {
+    header: {
+      en: "Newspapers",
+    },
+  },
+
+  author: {
+    header: {
+      en: "Author",
+    },
+  },
+
   left: {
     home: {
       cs: "Vítejte",

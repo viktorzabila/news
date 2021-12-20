@@ -1,6 +1,6 @@
 "use strict";
 const { Validator } = require("uu_appg01_server").Validation;
-const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
+const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { Profile, AppClientTokenService, UuAppWorkspace, UuAppWorkspaceError } = require("uu_appg01_server").Workspace;
 const { UriBuilder } = require("uu_appg01_server").Uri;
@@ -19,7 +19,7 @@ const logger = LoggerFactory.get("NewsMainAbl");
 class NewsMainAbl {
   constructor() {
     this.validator = Validator.load();
-    this.dao =  DaoFactory.getDao("newsMain");
+    this.dao = DaoFactory.getDao("newsMain");
   }
 
   async init(uri, dtoIn, session) {
@@ -116,10 +116,6 @@ class NewsMainAbl {
     } catch (e) {
       throw new Errors.Init.UuNewsMainCreateDaoFailed({ uuAppErrorMap }, e);
     }
-    // TODO Implement according to application needs...
-    //
-    // // HDS N+1
-    // const workspace = UuAppWorkspace.get(awid);
 
     return {
       ...uuNews,

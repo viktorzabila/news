@@ -8,8 +8,7 @@ import "uu_plus4u5g01-app";
 import Config from "./config/config";
 import Left from "./left";
 import Bottom from "./bottom";
-import Home from "../routes/home";
-import {NewspapersList} from "../routes/newspapers/newspapers";
+import { NewspapersList } from "../routes/newspapers/newspapers";
 import ArticlesList from "../routes/articles/articles";
 import AuthorsList from "../routes/authors/authors";
 import TopicsList from "../routes/topics/topics";
@@ -28,22 +27,22 @@ const ControlPanel = UU5.Common.Component.lazy(() => import("../routes/control-p
 const DEFAULT_USE_CASE = "articles";
 const ROUTES = {
   "": DEFAULT_USE_CASE,
-  home: { component: <Home /> },
+  home: { component: <ArticlesList /> },
   about: { component: <About /> },
   newspapers: {
-    component: <NewspapersList/>
+    component: <NewspapersList />,
   },
   newspaper: {
-    component: <ArticlesList/>
+    component: <ArticlesList />,
   },
   articles: {
-    component: <ArticlesList/>
+    component: <ArticlesList />,
   },
   authors: {
-    component: <AuthorsList/>
+    component: <AuthorsList />,
   },
   topics: {
-    component: <TopicsList/>
+    component: <TopicsList />,
   },
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
   controlPanel: { component: <ControlPanel /> },

@@ -1,16 +1,15 @@
 "use strict";
-const Path = require("path");
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/author-error.js");
 
 const WARNINGS = {
-  authorCreateDtoInType: {
+  createUnsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
 
-  authorGetUnsupportedKeys: {
+  getUnsupportedKeys: {
     code: `${Errors.Get.UC_CODE}unsupportedKeys`,
   },
 
@@ -20,7 +19,6 @@ const WARNINGS = {
 };
 
 class AuthorAbl {
-
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("author");
@@ -32,10 +30,10 @@ class AuthorAbl {
     const awid = uri.getAwid();
     const NewsInstance = await this.mainDao.get(awid);
     if (!NewsInstance) {
-      throw new Errors.Create.UuAuthorDoesNotExist({ uuAppErrorMap }, { awid });
+      throw new Errors.Create.UuNewsDoesNotExist({ uuAppErrorMap }, { awid });
     }
-    if (NewsInstance.state !== 'active') {
-      throw new Errors.Create.UuAuthorIsNotInCorrectState({uuAppErrorMap}, { awid})
+    if (NewsInstance.state !== "active") {
+      throw new Errors.Create.UuNewsIsNotInCorrectState({ uuAppErrorMap }, { awid });
     }
 
     // HDS 2
@@ -66,10 +64,10 @@ class AuthorAbl {
     // HDS 1 Checks state.
 
     if (!NewsInstance) {
-      throw new Errors.Create.UuAuthorDoesNotExist({ uuAppErrorMap }, { awid });
+      throw new Errors.Create.UuNewsDoesNotExist({ uuAppErrorMap }, { awid });
     }
-    if (NewsInstance.state !== 'active') {
-      throw new Errors.Create.UuAuthorIsNotInCorrectState({uuAppErrorMap}, { awid})
+    if (NewsInstance.state !== "active") {
+      throw new Errors.Create.UuNewsIsNotInCorrectState({ uuAppErrorMap }, { awid });
     }
 
     // HDS 2 - Validation of dtoIn.
@@ -78,12 +76,12 @@ class AuthorAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.authorCreateDtoInType.code,
+      WARNINGS.createUnsupportedKeys.code,
       Errors.Create.InvalidDtoIn
     );
 
     //HDS3 Creates newspaper in the uuAppObjectStore (newspaper DAO create).
-    const uuObject = { ...dtoIn, awid}
+    const uuObject = { ...dtoIn, awid };
     let newspaper = null;
 
     try {
@@ -110,10 +108,7 @@ class AuthorAbl {
       throw new Errors.Get.UuNewsDoesNotExist({ uuAppErrorMap }, { awid });
     }
     if (NewsInstance.state !== "active") {
-      throw new Errors.Create.UuNewsIsNotInCorrectState(
-        { uuAppErrorMap },
-        { currentState: NewsInstance.state }
-      );
+      throw new Errors.Get.UuNewsIsNotInCorrectState({ uuAppErrorMap }, { currentState: NewsInstance.state });
     }
 
     // HDS 2 - Validation of dtoIn.
@@ -122,12 +117,12 @@ class AuthorAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.authorGetUnsupportedKeys.code,
+      WARNINGS.getUnsupportedKeys.code,
       Errors.Get.InvalidDtoIn
     );
 
-    //HDS3 Loads the newspaper upp uuObject from the uuAppObjectStore by dtoIn.id (through the newspaper DAO get)
-    const uuObject = {...dtoIn, awid}
+    //HDS3 Loads the author uuObject from the uuAppObjectStore by dtoIn.id (through the  DAO get)
+    const uuObject = { ...dtoIn, awid };
     let particularNewspaper = await this.dao.get(uuObject);
     if (!particularNewspaper) {
       throw new Errors.Get.AuthorDoesNotExist({ uuAppErrorMap }, { id: dtoIn.id });
@@ -140,7 +135,6 @@ class AuthorAbl {
       ...particularNewspaper,
     };
   }
-
 }
 
 module.exports = new AuthorAbl();

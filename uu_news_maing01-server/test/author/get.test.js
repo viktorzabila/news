@@ -1,7 +1,7 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const ValidateHelper = require("../validate-helper.js");
 const PolygonsTestHelper = require("../polygons-test-helper.js");
-const CMD = "author/get";
+const CMD = "topic/get";
 afterEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.teardown();
@@ -19,17 +19,13 @@ beforeEach(async () => {
   await TestHelper.executePostCommand("sys/uuAppWorkspace/init", dtoIn, session);
 });
 
-describe("Testing the author/get...", () => {
+describe("Testing the topic/get...", () => {
   test("HDS", async () => {
     let session = await TestHelper.login("AwidLicenseOwner", false, false);
     let dtoIn = {
-      id: "61bc6e34fb5a841fe8c03b27",
+      id: "61bc6e03fb5a841fe8c03b1a",
     };
-    let help = await TestHelper.executePostCommand(
-      "author/create",
-      { name: "List name", surname: "Topic Surname" },
-      session
-    );
+    let help = await TestHelper.executePostCommand("topic/create", { name: "List name" }, session);
     let result = await TestHelper.executeGetCommand(CMD, { id: help.id }, session);
     expect(result.status).toEqual(200);
     expect(result.data.uuAppErrorMap).toBeDefined();
@@ -37,13 +33,14 @@ describe("Testing the author/get...", () => {
   test("Invalid dtoIn", async () => {
     expect.assertions(3);
     let session = await TestHelper.login("AwidLicenseOwner", false, false);
-    try {
-      let result = await TestHelper.executePostCommand("author/create", {}, session);
-      let fin = await TestHelper.executeGetCommand("author/get", { dr: result.id }, session);
-    } catch (e) {
+    try{
+      let result = await TestHelper.executePostCommand("topic/create", {}, session);
+      let fin = await TestHelper.executeGetCommand("topic/get", {dr:result.id}, session);
+
+    } catch(e){
       expect(e.status).toEqual(400);
-      expect(e.message).toEqual("DtoIn is not valid.");
-      expect(e.code).toEqual("uu-news-main/author/create/invalidDtoIn");
+      expect(e.message).toEqual("DtoIn is not valid.")
+      expect(e.code).toEqual("uu-news-main/topic/create/invalidDtoIn")
     }
   });
 
@@ -60,11 +57,11 @@ describe("Testing the author/get...", () => {
     let errMsg = "The application is not in correct state.";
 
     try {
-      await TestHelper.executePostCommand("author/create", PolygonsTestHelper.dtoIn.topic.create, session);
+      await TestHelper.executePostCommand("topic/create", PolygonsTestHelper.dtoIn.topic.create, session);
     } catch (e) {
       expect(e.status).toEqual(400);
-      expect(e.message).toEqual("uuNews is not in correct state.");
-      expect(e.code).toEqual("uu-news-main/author/create/UuNewsIsNotInCorrectState");
+      expect(e.message).toEqual("The application is not in correct state.")
+      expect(e.code).toEqual("uu-news-main/topic/create/UuNewsIsNotInCorrectState")
     }
   });
   test("UuNewsDoesNotExist", async () => {

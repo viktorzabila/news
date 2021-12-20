@@ -1,5 +1,4 @@
 "use strict";
-const Path = require("path");
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
@@ -16,7 +15,6 @@ const WARNINGS = {
 };
 
 class ArticleAbl {
-
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("article");
@@ -31,10 +29,10 @@ class ArticleAbl {
     const awid = uri.getAwid();
     const NewsInstance = await this.mainDao.get(awid);
     if (!NewsInstance) {
-      throw new Errors.Create.uuNewsDoesNotExist({ uuAppErrorMap }, { awid });
+      throw new Errors.Create.UuNewsDoesNotExist({ uuAppErrorMap }, { awid });
     }
-    if (NewsInstance.state !== 'active') {
-      throw new Errors.Create.uuNewsIsNotInCorrectState({uuAppErrorMap}, { awid})
+    if (NewsInstance.state !== "active") {
+      throw new Errors.Create.UuNewsIsNotInCorrectState({ uuAppErrorMap }, { awid });
     }
 
     // HDS 2 Validation of dtoIn.
@@ -52,7 +50,7 @@ class ArticleAbl {
 
     // HDS 3.1 Loads a list of article uuObjects through the article DAO ListByFilter.
     if (!articleList) {
-      throw new Error.Create.articleDaoListByFilterFailed({uuAppErrorMap}, { awid })
+      throw new Error.Create.ArticleDaoListByFilterFailed({ uuAppErrorMap }, { awid });
     }
     //HDS 4 Returns properly filled dtoOut.
     return {
@@ -63,11 +61,11 @@ class ArticleAbl {
 
   async create(uri, dtoIn, uuAppErrorMap = {}) {
     const awid = uri.getAwid();
-    const uuNews  = await this.mainDao.get(awid);
+    const uuNews = await this.mainDao.get(awid);
 
-    // HDS 1 Checks state.
+    // HDS 1 Checks uuNews state.
 
-    if (!uuNews ) {
+    if (!uuNews) {
       throw new Errors.Create.UuNewsDoesNotExist({ uuAppErrorMap }, { awid });
     }
     if (uuNews.state !== "active") {
@@ -89,36 +87,36 @@ class ArticleAbl {
     );
 
     // HDS 3 Checking dtoIn
-    let uuObject = { ...dtoIn, awid}
+    let uuObject = { ...dtoIn, awid };
 
     // HDS 3.1 Get Newspaper with Newspaper DAO get and dtoIn.newspaperId
 
-    const newspaper = await this.daoNewspaper.get({awid: uuObject.awid, id: uuObject.newspaperId})
+    const newspaper = await this.daoNewspaper.get({ awid: uuObject.awid, id: uuObject.newspaperId });
 
     if (!newspaper) {
-      throw new Errors.Create.NewspaperDoesNotExist({uuAppErrorMap, id: uuObject.newspaperId})
+      throw new Errors.Create.NewspaperDoesNotExist({ uuAppErrorMap, id: uuObject.newspaperId });
     }
 
     //HDS 3.2 Get Author with Author DAO get and dtoIn.authorId
-    const author = await this.daoAuthor.get({awid: uuObject.awid, id: uuObject.authorId})
+    const author = await this.daoAuthor.get({ awid: uuObject.awid, id: uuObject.authorId });
 
     if (!author) {
-      throw new Errors.Create.AuthorDoesNotExist({uuAppErrorMap, id: uuObject.newspaperId})
+      throw new Errors.Create.AuthorDoesNotExist({ uuAppErrorMap, id: uuObject.newspaperId });
     }
     //HDS 3.3 Get TopicList with topic DAO get and dtoIn.topicIdList
     const topicsNumber = dtoIn.topicIdList.length;
     const existingTopics = [];
     let atLeastOneExist = false;
 
-    for(let i=0; i<topicsNumber; i++){
-      let singleTopic = await this.daoTopic.get({id: dtoIn.topicIdList[i], awid});
-      if(singleTopic){
+    for (let i = 0; i < topicsNumber; i++) {
+      let singleTopic = await this.daoTopic.get({ id: dtoIn.topicIdList[i], awid });
+      if (singleTopic) {
         existingTopics.push(singleTopic);
         atLeastOneExist = true;
       }
     }
 
-    let existingIds = existingTopics.map((item)=> item.id);
+    let existingIds = existingTopics.map((item) => item.id);
 
     if (!atLeastOneExist) {
       throw new Errors.Create.TopicDoesNotExist({ uuAppErrorMap }, { id: uuObject.newspaperId });
@@ -133,7 +131,7 @@ class ArticleAbl {
     try {
       createdArticle = await this.dao.create(uuObject);
     } catch (err) {
-      throw new Errors.Create.ArticleDaoCreateFailed({ uuAppErrorMap }, err );
+      throw new Errors.Create.ArticleDaoCreateFailed({ uuAppErrorMap }, err);
     }
 
     // HDS5 Returns properly filled dtoOut.
@@ -143,7 +141,6 @@ class ArticleAbl {
       uuAppErrorMap,
     };
   }
-
 }
 
 module.exports = new ArticleAbl();

@@ -1,38 +1,40 @@
 const { TestHelper } = require("uu_appg01_server-test");
+const ValidateHelper = require("../validate-helper.js");
 const PolygonsTestHelper = require("../polygons-test-helper.js");
-
-const CMD = "newspaper/delete";
-afterAll(async () => {
+const CMD = "newspaper/get";
+afterEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.teardown();
 });
 
-beforeAll(async () => {
+beforeEach(async () => {
   await TestHelper.setup();
   await TestHelper.initUuSubAppInstance();
   await TestHelper.createUuAppWorkspace();
   let session = await TestHelper.login("AwidLicenseOwner", false, false);
 
   let dtoIn = {
-    id: "61bef6cd07cf04481cbbdd3a",
-    uuAppProfileAuthorities: "urn:uu:GGALL",
+    name: "Author 5",
+    newspaperUrl: "Author surname 5",
+    uuAppProfileAuthorities: "urn:uu:GGPLUS4U",
   };
   await TestHelper.executePostCommand("sys/uuAppWorkspace/init", dtoIn, session);
 });
 
-describe("Testing the list/get uuCmd...", () => {
+describe("Testing the list/get...", () => {
   test("HDS", async () => {
     let session = await TestHelper.login("AwidLicenseOwner", false, false);
     console.log("five");
     let helpingVar = await TestHelper.executePostCommand("newspaper/create", {
-      name: "Newspaper 4",
-      newspaperUrl: "https://www.youtube.com/2",
+      name: "Author 5",
+      newspaperUrl: "Author surname 5",
     });
     console.log({ ...helpingVar });
-    let result = await TestHelper.executePostCommand("newspaper/delete", { id: helpingVar.id }, session);
+    let result = await TestHelper.executeGetCommand("newspaper/get", { id: helpingVar.id }, session);
     expect(result.status).toEqual(200);
     expect(result.data.uuAppErrorMap).toBeDefined();
   });
+
   test("UuNewsDoesNotExist", async () => {
     let session = await TestHelper.login("Authorities", false, false);
     let filter = `{awid: "${TestHelper.awid}"}`;

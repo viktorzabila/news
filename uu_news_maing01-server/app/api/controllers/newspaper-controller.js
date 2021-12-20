@@ -1,9 +1,7 @@
 "use strict";
 const NewspaperAbl = require("../../abl/newspaper-abl.js");
-const TopicAbl = require("../../abl/topic-abl.js");
 
 class NewspaperController {
-
   delete(ucEnv) {
     return NewspaperAbl.delete(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

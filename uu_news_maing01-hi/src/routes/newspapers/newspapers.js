@@ -6,8 +6,8 @@ import Config from "../../bricks/config/config";
 import DataListStateResolver from "../../common/data-list-state-resolver";
 import NewspapersLoader from "./newspapers-loader";
 import NewspapersContext from "../newspapers/context/newspapers-context";
-import Tiles from "./tiles";
-import {ModalManager} from "../../common/modal-manager";
+import NewspapersTiles from "./newspapers-tiles";
+import { ModalManager } from "../../common/modal-manager";
 //@@viewOff:imports
 
 const STATICS = {
@@ -27,20 +27,19 @@ export const NewspapersList = createVisualComponent({
 
   //@@viewOn:render
   render(props) {
-
     return (
       <ModalManager>
-      <NewspapersLoader>
-        <NewspapersContext.Consumer>
-          {(dataListResult) => {
-            return (
-              <DataListStateResolver dataList={dataListResult}>
-                <Tiles />
-              </DataListStateResolver>
-            );
-          }}
-        </NewspapersContext.Consumer>
-      </NewspapersLoader>
+        <NewspapersLoader>
+          <NewspapersContext.Consumer>
+            {(dataListResult) => {
+              return (
+                <DataListStateResolver dataList={dataListResult}>
+                  <NewspapersTiles />
+                </DataListStateResolver>
+              );
+            }}
+          </NewspapersContext.Consumer>
+        </NewspapersLoader>
       </ModalManager>
     );
   },

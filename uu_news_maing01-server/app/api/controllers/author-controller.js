@@ -1,9 +1,7 @@
 "use strict";
 const AuthorAbl = require("../../abl/author-abl.js");
-const NewspaperAbl = require("../../abl/newspaper-abl.js");
 
 class AuthorController {
-
   create(ucEnv) {
     return AuthorAbl.create(ucEnv.getUri(), ucEnv.getDtoIn());
   }

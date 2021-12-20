@@ -29,7 +29,6 @@ export const Left = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const newspapersRoutes = []
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -42,32 +41,32 @@ export const Left = createVisualComponent({
           {(dataListResult) => {
             return (
               <DataListStateResolver dataList={dataListResult}>
-              <Plus4U5.App.Left
-                {...props}
-                logoProps={{
-                  backgroundColor: UU5.Environment.colors.blue.c700,
-                  backgroundColorTo: UU5.Environment.colors.blue.c500,
-                  title: "uuNews",
-                  companyLogo: Plus4U5.Environment.basePath + "assets/img/unicorn-logo.svg",
-                  generation: "1",
-                }}
-                aboutItems={[{ content: <UU5.Bricks.Lsi lsi={Lsi.left.about} />, href: "about" }]}
-                helpHref={null}
-              >
-              <Plus4U5.App.MenuTree
-                borderBottom
-                // NOTE Item "id" equals to useCase so that item gets automatically selected when route changes (see spa-autheticated.js).
-                items={[
-                  // { id: "home", href: "home", content: <UU5.Bricks.Lsi lsi={Lsi.left.home} /> },
-                  { id: "articles", href: "articles", content: <UU5.Bricks.Lsi lsi={Lsi.left.articles} /> },
-                  { id: "newspapers", href: "newspapers", content: <UU5.Bricks.Lsi lsi={Lsi.left.newspapers} /> },
-                  { id: "authors", href: "authors", content: <UU5.Bricks.Lsi lsi={Lsi.left.authors} /> },
-                  { id: "topics", href: "topics", content: <UU5.Bricks.Lsi lsi={Lsi.left.topics} /> },
-                  { id: "watchlist", href: "watchlist", content: <UU5.Bricks.Lsi lsi={Lsi.left.watchlist} /> },
-                  { id: "about", href: "about", content: <UU5.Bricks.Lsi lsi={Lsi.left.about} /> },
-                ]}
-              />
-              </Plus4U5.App.Left>
+                <Plus4U5.App.Left
+                  {...props}
+                  logoProps={{
+                    backgroundColor: UU5.Environment.colors.blue.c700,
+                    backgroundColorTo: UU5.Environment.colors.blue.c500,
+                    title: "uuNews",
+                    companyLogo: Plus4U5.Environment.basePath + "assets/img/unicorn-logo.svg",
+                    generation: "1",
+                  }}
+                  aboutItems={[{ content: <UU5.Bricks.Lsi lsi={Lsi.left.about} />, href: "about" }]}
+                  helpHref={null}
+                >
+                  <Plus4U5.App.MenuTree
+                    borderBottom
+                    // NOTE Item "id" equals to useCase so that item gets automatically selected when route changes (see spa-autheticated.js).
+                    items={[
+                      // { id: "home", href: "home", content: <UU5.Bricks.Lsi lsi={Lsi.left.home} /> },
+                      { id: "articles", href: "articles", content: <UU5.Bricks.Lsi lsi={Lsi.left.articles} /> },
+                      { id: "newspapers", href: "newspapers", content: <UU5.Bricks.Lsi lsi={Lsi.left.newspapers} /> },
+                      { id: "authors", href: "authors", content: <UU5.Bricks.Lsi lsi={Lsi.left.authors} /> },
+                      { id: "topics", href: "topics", content: <UU5.Bricks.Lsi lsi={Lsi.left.topics} /> },
+                      { id: "watchlist", href: "watchlist", content: <UU5.Bricks.Lsi lsi={Lsi.left.watchlist} /> },
+                      { id: "about", href: "about", content: <UU5.Bricks.Lsi lsi={Lsi.left.about} /> },
+                    ]}
+                  />
+                </Plus4U5.App.Left>
               </DataListStateResolver>
             );
           }}

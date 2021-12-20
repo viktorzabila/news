@@ -26,15 +26,13 @@ export const TopicsList = createVisualComponent({
 
   //@@viewOn:render
   render(props, params) {
-
     return (
       <TopicsLoader>
         <TopicsContext.Consumer>
           {(dataListResult) => {
             return (
               <DataListStateResolver dataList={dataListResult}>
-                <TopicsTiles
-                />
+                <TopicsTiles />
               </DataListStateResolver>
             );
           }}

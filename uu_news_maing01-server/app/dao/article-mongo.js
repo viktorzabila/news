@@ -2,15 +2,13 @@
 const { UuObjectDao } = require("uu_appg01_server").ObjectStore;
 
 class ArticleMongo extends UuObjectDao {
-
-  async createSchema(){
-  }
+  async createSchema() {}
 
   async create(uuObject) {
     return await super.insertOne(uuObject);
   }
 
-  async list(filterMap={}, pageInfo={}) {
+  async list(filterMap = {}, pageInfo = {}) {
     return await super.find(filterMap, pageInfo);
   }
 
@@ -23,7 +21,7 @@ class ArticleMongo extends UuObjectDao {
 
   async getByNewsPaperId(uuObject) {
     let filter = {
-      newspaperId: uuObject.newspaperId
+      newspaperId: uuObject.newspaperId,
     };
     return await super.findOne(filter);
   }

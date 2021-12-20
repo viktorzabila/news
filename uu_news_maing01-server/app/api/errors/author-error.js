@@ -14,27 +14,19 @@ const Create = {
     }
   },
 
-  UuAuthorDoesNotExist: class extends NewsMainUseCaseError {
+  UuNewsDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}UuAuthorDoesNotExist`;
-      this.message = "UuNewspaperDoesNotExist does not exist.";
+      this.code = `${Create.UC_CODE}UuNewsDoesNotExist`;
+      this.message = "uuNews does not exist.";
     }
   },
 
-  UuAuthorIsNotInCorrectState: class extends NewsMainUseCaseError {
+  UuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}UuAuthorIsNotInCorrectState`;
-      this.message = "The application is not in correct state.";
-    }
-  },
-
-  AuthorCreateDtoInType: class extends NewsMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}AuthorCreateDtoInType`;
-      this.message = "Creating newspaper by  DAO create failed.";
+      this.code = `${Create.UC_CODE}UuNewsIsNotInCorrectState`;
+      this.message = "uuNews is not in correct state.";
     }
   },
 
@@ -58,27 +50,19 @@ const Get = {
     }
   },
 
-  UuAuthorDoesNotExist: class extends NewsMainUseCaseError {
+  UuNewsDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}UuAuthorDoesNotExist`;
-      this.message = "UuNewsDoesNotExist does not exist.";
+      this.code = `${Get.UC_CODE}UuNewsDoesNotExist`;
+      this.message = "uuNews does not exist.";
     }
   },
 
-  UuAuthorIsNotInCorrectState: class extends NewsMainUseCaseError {
+  UuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}UuAuthorIsNotInCorrectState`;
-      this.message = "The application is not in correct state.";
-    }
-  },
-
-  AuthorGetDtoInType: class extends NewsMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Get.UC_CODE}AuthorGetDtoInType`;
-      this.message = "Author  failed.";
+      this.code = `${Get.UC_CODE}UuNewsIsNotInCorrectState`;
+      this.message = "uuNews is not in correct state.";
     }
   },
 
@@ -91,30 +75,22 @@ const Get = {
   },
 };
 
-
 const List = {
   UC_CODE: `${AUTHOR_ERROR_PREFIX}list/`,
-  UuAuthorIsNotInCorrectState: class extends NewsMainUseCaseError {
+
+  UuNewsDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${List.UC_CODE}UuAuthorIsNotInCorrectState`;
-      this.message = "The application is not in correct state.";
+      this.code = `${Get.UC_CODE}UuNewsDoesNotExist`;
+      this.message = "uuNews does not exist.";
     }
   },
 
-  AuthorGetDtoInType: class extends NewsMainUseCaseError {
+  UuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}AuthorGetDtoInType`;
-      this.message = "Author  failed.";
-    }
-  },
-
-  UuAuthorDoesNotExist: class extends NewsMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${List.UC_CODE}UuAuthorDoesNotExist`;
-      this.message = "Authors does not exist";
+      this.code = `${Get.UC_CODE}UuNewsIsNotInCorrectState`;
+      this.message = "uuNews is not in correct state.";
     }
   },
 };
@@ -122,5 +98,5 @@ const List = {
 module.exports = {
   List,
   Create,
-  Get
+  Get,
 };

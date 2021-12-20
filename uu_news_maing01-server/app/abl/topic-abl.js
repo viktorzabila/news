@@ -1,12 +1,11 @@
 "use strict";
-const Path = require("path");
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/topic-error.js");
 
 const WARNINGS = {
-  createDtoInType: {
+  createUnsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
 
@@ -20,7 +19,6 @@ const WARNINGS = {
 };
 
 class TopicAbl {
-
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("topic");
@@ -32,10 +30,10 @@ class TopicAbl {
     const awid = uri.getAwid();
     const NewsInstance = await this.mainDao.get(awid);
     if (!NewsInstance) {
-      throw new Errors.Create.UuTopicDoesNotExist({ uuAppErrorMap }, { awid });
+      throw new Errors.List.UuNewsDoesNotExist({ uuAppErrorMap }, { awid });
     }
-    if (NewsInstance.state !== 'active') {
-      throw new Errors.Create.UuTopicIsNotInCorrectState({uuAppErrorMap}, { awid})
+    if (NewsInstance.state !== "active") {
+      throw new Errors.List.UuNewsIsNotInCorrectState({ uuAppErrorMap }, { awid });
     }
 
     // HDS 2
@@ -69,10 +67,7 @@ class TopicAbl {
       throw new Errors.Get.UuNewsDoesNotExist({ uuAppErrorMap }, { awid });
     }
     if (NewsInstance.state !== "active") {
-      throw new Errors.Create.UuNewsIsNotInCorrectState(
-        { uuAppErrorMap },
-        { currentState: NewsInstance.state }
-      );
+      throw new Errors.Create.UuNewsIsNotInCorrectState({ uuAppErrorMap }, { currentState: NewsInstance.state });
     }
 
     // HDS 2 - Validation of dtoIn.
@@ -86,10 +81,10 @@ class TopicAbl {
     );
 
     //HDS3 Loads the newspaper upp uuObject from the uuAppObjectStore by dtoIn.id (through the newspaper DAO get)
-    const uuObject = {...dtoIn, awid}
+    const uuObject = { ...dtoIn, awid };
     let particularNewspaper = await this.dao.get(uuObject);
     if (!particularNewspaper) {
-      throw new Errors.Get.NewspaperDoesNotExist({ uuAppErrorMap }, { id: dtoIn.id });
+      throw new Errors.Get.TopicDoesNotExist({ uuAppErrorMap }, { id: dtoIn.id });
     }
 
     // HDS4 Returns properly filled dtoOut.
@@ -107,10 +102,10 @@ class TopicAbl {
     // HDS 1 Checks state.
 
     if (!NewsInstance) {
-      throw new Errors.Create.UuTopicDoesNotExist({ uuAppErrorMap }, { awid });
+      throw new Errors.Create.UuNewsDoesNotExist({ uuAppErrorMap }, { awid });
     }
-    if (NewsInstance.state !== 'active') {
-      throw new Errors.Create.UuTopicIsNotInCorrectState({uuAppErrorMap}, { awid})
+    if (NewsInstance.state !== "active") {
+      throw new Errors.Create.UuNewsIsNotInCorrectState({ uuAppErrorMap }, { awid });
     }
 
     // HDS 2 - Validation of dtoIn.
@@ -119,12 +114,13 @@ class TopicAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.createDtoInType.code,
+      WARNINGS.createUnsupportedKeys.code,
       Errors.Create.InvalidDtoIn
     );
 
     //HDS3 Creates newspaper in the uuAppObjectStore (newspaper DAO create).
-    const uuObject = { ...dtoIn, awid}
+
+    const uuObject = { ...dtoIn, awid };
     let newspaper = null;
 
     try {
@@ -140,7 +136,6 @@ class TopicAbl {
       uuAppErrorMap,
     };
   }
-
 }
 
 module.exports = new TopicAbl();

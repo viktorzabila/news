@@ -76,31 +76,30 @@ const Create = {
       this.message = "Create article by article DAO create failed.";
     }
   },
-
 };
 
 const List = {
   UC_CODE: `${ARTICLE_ERROR_PREFIX}list/`,
-  uuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
+  UuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${List.UC_CODE}uuNewsIsNotInCorrectState`;
+      this.code = `${List.UC_CODE}UuNewsIsNotInCorrectState`;
       this.message = "uuNews is not in correct state.";
     }
   },
 
-  articleDaoListByFilterFailed: class extends NewsMainUseCaseError {
+  ArticleDaoListByFilterFailed: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${List.UC_CODE}articleDaoListByFilterFailed`;
+      this.code = `${List.UC_CODE}ArticleDaoListByFilterFailed`;
       this.message = "List articles by article DAO listByFiler failed.";
     }
   },
 
-  uuNewsDoesNotExist: class extends NewsMainUseCaseError {
+  UuNewsDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${List.UC_CODE}uuNewsDoesNotExist`;
+      this.code = `${List.UC_CODE}UuNewsDoesNotExist`;
       this.message = "uuNews does not exist.";
     }
   },
@@ -108,5 +107,5 @@ const List = {
 
 module.exports = {
   List,
-  Create
+  Create,
 };

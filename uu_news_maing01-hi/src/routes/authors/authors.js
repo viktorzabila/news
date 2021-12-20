@@ -26,15 +26,13 @@ export const AuthorsList = createVisualComponent({
 
   //@@viewOn:render
   render(props, params) {
-
     return (
       <AuthorsLoader>
         <AuthorsContext.Consumer>
           {(dataListResult) => {
             return (
               <DataListStateResolver dataList={dataListResult}>
-                <AuthorsTiles
-                />
+                <AuthorsTiles />
               </DataListStateResolver>
             );
           }}

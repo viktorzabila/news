@@ -27,7 +27,7 @@ export const AuthorsLoader = createComponent({
     const dataListResult = useDataList({
       handlerMap: {
         load: Calls.authorList,
-        create: Calls.authorCreate,
+        // create: Calls.authorCreate,
       },
     });
 

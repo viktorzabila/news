@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent } from "uu5g04-hooks";
 import Config from "../config/config";
 //@@viewOff:imports
 
@@ -9,6 +9,14 @@ const STATICS = {
   displayName: Config.TAG + "CustomTile",
   nestingLevel: "bigBoxCollection",
   //@@viewOff:statics
+};
+
+const CLASS_NAMES = {
+  wrapper: () => Config.Css.css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  `,
 };
 
 export const TopicsCustomTile = createVisualComponent({
@@ -27,9 +35,7 @@ export const TopicsCustomTile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { data: item, handleReload } = props;
-    const { handlerMap } = item;
-    let [isTrue, setIsTrue] = useState();
+    const { data: item } = props;
     //@@viewOn:private
 
     //@@viewOn:interface
@@ -43,12 +49,19 @@ export const TopicsCustomTile = createVisualComponent({
     return currentNestingLevel ? (
       <UU5.Bricks.Container noSpacing={true}>
         <div {...attrs}>
-          <UU5.Bricks.Card>
-            <div onClick={() => UU5.Environment.setRoute({url:{useCase:"home"}}) }></div>
-            <div><UU5.Bricks.Icon icon="mdi-tag-multiple"/></div>
-              <UU5.Bricks.Text
-                content={item?.data?.name}
+          <UU5.Bricks.Card className="uu5-common-padding-xl">
+            <div className={CLASS_NAMES.wrapper()}>
+              <UU5.Bricks.Row display="flex">
+                <UU5.Bricks.Icon icon="mdi-tag-multiple" />
+                <UU5.Bricks.Text content={item?.data?.name} />
+              </UU5.Bricks.Row>
+              <UU5.Bricks.Dropdown
+                label=""
+                iconClosed="mdi-dots-vertical"
+                iconOpen="mdi-dots-vertical"
+                items={[{ label: "Edit" }, { label: "Delete" }]}
               />
+            </div>
           </UU5.Bricks.Card>
         </div>
       </UU5.Bricks.Container>

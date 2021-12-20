@@ -1,7 +1,7 @@
 import UU5 from "uu5g04";
-import { createVisualComponent, useLsiValues, useState  } from "uu5g04-hooks";
-import Lsi from './newspapers-update-form-lsi';
+import { createVisualComponent, useState } from "uu5g04-hooks";
 import Config from "../config/config";
+import Lsi from "./newspapers-update-form-lsi";
 
 const STATICS = {
   displayName: Config.TAG + "ItemUpdateForm",
@@ -13,21 +13,20 @@ const ItemUpdateForm = createVisualComponent({
 
   render(props) {
     const { data, closeModal } = props;
-    const [isLoading]=useState(false)
+    const [isLoading] = useState(false);
 
     async function handleUpdate(formData) {
       const { values, component } = formData;
 
       component.setPending();
 
-      try{
+      try {
         await data.handlerMap.update(values);
         component.getAlertBus().addAlert({
           content: <UU5.Common.Error content={<UU5.Bricks.Lsi lsi={Lsi.saveSuccess} />} />,
           colorSchema: "success",
         });
-      }
-      catch{
+      } catch {
         component.getAlertBus().addAlert({
           content: <UU5.Common.Error content={<UU5.Bricks.Lsi lsi={Lsi.saveError} />} />,
           colorSchema: "danger",
@@ -39,10 +38,7 @@ const ItemUpdateForm = createVisualComponent({
     }
     const className = Config.Css.css``;
     const attrs = UU5.Common.VisualComponent.getAttrs(props, className);
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(
-      props,
-      STATICS
-    );
+    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
       <UU5.Forms.ContextForm
@@ -54,11 +50,15 @@ const ItemUpdateForm = createVisualComponent({
         <UU5.Forms.Text
           label="Name"
           name="name"
+          pattern="[A-Za-z]{3}"
+          patternMessage="Must contain at least 3 alphabet characters"
           value={data?.data.name}
         />
         <UU5.Forms.Text
           label="newspaperUrl"
           name="newspaperUrl"
+          pattern="[A-Za-z]{3}"
+          patternMessage="Must contain at least 3 alphabet characters"
           value={data?.data.newspaperUrl}
         />
       </UU5.Forms.ContextForm>
@@ -66,12 +66,7 @@ const ItemUpdateForm = createVisualComponent({
   },
 });
 const ItemUpdateHeader = () => {
-  return (
-    <UU5.Forms.ContextHeader
-      content={<UU5.Bricks.Lsi lsi={Lsi.header} />}
-      info={<UU5.Bricks.Lsi lsi={Lsi.info} params={[Config.TEST_TICKET_SET_STATE]} />}
-    />
-  );
+  return <UU5.Forms.ContextHeader content={<UU5.Bricks.Lsi lsi={Lsi.header} />} />;
 };
 
 const ItemUpdateControls = () => {
@@ -83,4 +78,4 @@ const ItemUpdateControls = () => {
   );
 };
 export { ItemUpdateForm, ItemUpdateHeader, ItemUpdateControls };
-export default  ItemUpdateForm;
+export default ItemUpdateForm;

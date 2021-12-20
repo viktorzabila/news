@@ -1,7 +1,7 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const PolygonsTestHelper = require("../polygons-test-helper.js");
 
-const CMD = "newspaper/delete";
+const CMD = "newspaper/list";
 afterAll(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.teardown();
@@ -14,24 +14,29 @@ beforeAll(async () => {
   let session = await TestHelper.login("AwidLicenseOwner", false, false);
 
   let dtoIn = {
-    id: "61bef6cd07cf04481cbbdd3a",
     uuAppProfileAuthorities: "urn:uu:GGALL",
   };
   await TestHelper.executePostCommand("sys/uuAppWorkspace/init", dtoIn, session);
 });
 
-describe("Testing the list/get uuCmd...", () => {
+describe("Testing the newspaper/list uuCmd...", () => {
   test("HDS", async () => {
     let session = await TestHelper.login("AwidLicenseOwner", false, false);
     console.log("five");
-    let helpingVar = await TestHelper.executePostCommand("newspaper/create", {
-      name: "Newspaper 4",
-      newspaperUrl: "https://www.youtube.com/2",
+    let firstList = await TestHelper.executePostCommand("newspaper/create", {
+      name: "Author 51",
+      newspaperUrl: "Author surname 51",
     });
-    console.log({ ...helpingVar });
-    let result = await TestHelper.executePostCommand("newspaper/delete", { id: helpingVar.id }, session);
-    expect(result.status).toEqual(200);
-    expect(result.data.uuAppErrorMap).toBeDefined();
+    let secondList = await TestHelper.executePostCommand("newspaper/create", {
+      name: "Author 52",
+      newspaperUrl: "Author surname 52",
+    });
+    let thirdList = await TestHelper.executePostCommand("newspaper/create", {
+      name: "Author 53",
+      newspaperUrl: "Author surname 53",
+    });
+    let list = await TestHelper.executeGetCommand("newspaper/list", {});
+    expect(list).toBeDefined();
   });
   test("UuNewsDoesNotExist", async () => {
     let session = await TestHelper.login("Authorities", false, false);
@@ -77,7 +82,7 @@ describe("Testing the list/get uuCmd...", () => {
     let errMsg = "The application is not in correct state.";
 
     try {
-      await TestHelper.executePostCommand("newspaper/create", PolygonsTestHelper.dtoIn.newspaper.create, session);
+      await TestHelper.executePostCommand("newspaper/list", PolygonsTestHelper.dtoIn.newspaper.list, session);
     } catch (e) {}
   });
 });

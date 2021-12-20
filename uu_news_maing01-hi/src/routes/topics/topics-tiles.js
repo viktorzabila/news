@@ -5,6 +5,7 @@ import Uu5Tiles from "uu5tilesg02";
 import Config from "../config/config";
 import TopicsCustomTile from "./topics-custom-tile";
 import useTopics from "../topics/context/use-topics";
+import Lsi from "../../config/lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -13,7 +14,6 @@ const STATICS = {
   nestingLevel: "bigBoxCollection",
   //@@viewOff:statics
 };
-
 
 export const TopicsTiles = createVisualComponent({
   ...STATICS,
@@ -30,11 +30,10 @@ export const TopicsTiles = createVisualComponent({
 
   render(props) {
     //@@viewOn:hooks
-    const { data, handlerMap: listHandlerMap } = useTopics();
+    const { data } = useTopics();
     //@@viewOff:hooks
 
     //@@viewOn:private
-
 
     //@@viewOff:private
     //@@viewOn:interface
@@ -45,8 +44,11 @@ export const TopicsTiles = createVisualComponent({
       <div>
         <Uu5Tiles.ControllerProvider data={data}>
           <UU5.Bricks.Container>
-            <Uu5Tiles.Grid tileHeight={"row"} tileMinWidth={1000} tileMaxWidth={1600} tileSpacing={20} rowSpacing={20}>
-              <TopicsCustomTile  />
+            <UU5.Bricks.Header level={3}>
+              <UU5.Bricks.Lsi lsi={Lsi.topic.header} />
+            </UU5.Bricks.Header>
+            <Uu5Tiles.Grid tileHeight="auto" tileMinWidth={1000} tileMaxWidth={1600} tileSpacing={40} rowSpacing={40}>
+              <TopicsCustomTile />
             </Uu5Tiles.Grid>
           </UU5.Bricks.Container>
         </Uu5Tiles.ControllerProvider>

@@ -1,10 +1,7 @@
 "use strict";
 const TopicAbl = require("../../abl/topic-abl.js");
-const NewspaperAbl = require("../../abl/newspaper-abl.js");
-const AuthorAbl = require("../../abl/author-abl.js");
 
 class TopicController {
-
   list(ucEnv) {
     return TopicAbl.list(ucEnv.getUri(), ucEnv.getDtoIn());
   }

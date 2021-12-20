@@ -14,27 +14,19 @@ const Create = {
     }
   },
 
-  UuTopicDoesNotExist: class extends NewsMainUseCaseError {
+  UuNewsDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}UuTopicDoesNotExist`;
-      this.message = "UuTopicDoesNotExist does not exist.";
+      this.code = `${Create.UC_CODE}UuNewsDoesNotExist`;
+      this.message = "uuNews does not exist.";
     }
   },
 
-  UuTopicIsNotInCorrectState: class extends NewsMainUseCaseError {
+  UuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}UuTopicIsNotInCorrectState`;
+      this.code = `${Create.UC_CODE}UuNewsIsNotInCorrectState`;
       this.message = "The application is not in correct state.";
-    }
-  },
-
-  TopicCreateDtoInType: class extends NewsMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}TopicCreateDtoInType`;
-      this.message = "Creating topic by  news failed.";
     }
   },
 
@@ -58,27 +50,19 @@ const Get = {
     }
   },
 
-  UuTopicDoesNotExist: class extends NewsMainUseCaseError {
+  UuNewsDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}UuTopicDoesNotExist`;
-      this.message = "UuTopicDoesNotExist does not exist.";
+      this.code = `${Get.UC_CODE}UuNewsDoesNotExist`;
+      this.message = "uuNews does not exist.";
     }
   },
 
-  UuTopicIsNotInCorrectState: class extends NewsMainUseCaseError {
+  UuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${Get.UC_CODE}UuTopicIsNotInCorrectState`;
       this.message = "The application is not in correct state.";
-    }
-  },
-
-  TopicGetDtoInType: class extends NewsMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Get.UC_CODE}TopicGetDtoInType`;
-      this.message = "Creating topic by  news  failed.";
     }
   },
 
@@ -93,26 +77,19 @@ const Get = {
 
 const List = {
   UC_CODE: `${TOPIC_ERROR_PREFIX}list/`,
-  UuTopicIsNotInCorrectState: class extends NewsMainUseCaseError {
+
+  UuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${List.UC_CODE}UuTopicIsNotInCorrectState`;
+      this.code = `${List.UC_CODE}UuNewsIsNotInCorrectState`;
       this.message = "The application is not in correct state.";
     }
   },
 
-  TopicGetDtoInType: class extends NewsMainUseCaseError {
+  UuNewsDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${List.UC_CODE}TopicGetDtoInType`;
-      this.message = "Topic  failed.";
-    }
-  },
-
-  UuTopicDoesNotExist: class extends NewsMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${List.UC_CODE}UuTopicDoesNotExist`;
+      this.code = `${List.UC_CODE}UuNewsDoesNotExist`;
       this.message = "Topic does not exist";
     }
   },

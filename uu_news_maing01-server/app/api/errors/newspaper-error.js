@@ -30,19 +30,11 @@ const Create = {
     }
   },
 
-  NewspaperCreateDtoInType: class extends NewsMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Create.UC_CODE}NewspaperCreateDtoInType`;
-      this.message = "Creating newspaper by  DAO create failed.";
-    }
-  },
-
   NewspaperDaoCreateFailed: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${Create.UC_CODE}NewspaperDaoCreateFailed`;
-      this.message = "Creating newspaper by list DAO create failed.";
+      this.message = "Newspaper by DAO create failed.";
     }
   },
   NewspaperNameNotUnique: class extends NewsMainUseCaseError {
@@ -116,21 +108,22 @@ const Update = {
     }
   },
 
-  UuNewspaperDoesNotExist: class extends NewsMainUseCaseError {
+  uuNewsDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}UuNewspaperDoesNotExist`;
-      this.message = "UuNewspaperDoesNotExist does not exist.";
+      this.code = `${Update.UC_CODE}uuNewsDoesNotExist`;
+      this.message = "uuNews does not exist.";
     }
   },
 
-  UuNewspaperIsNotInCorrectState: class extends NewsMainUseCaseError {
+  UuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}UuNewspaperIsNotInCorrectState`;
-      this.message = "The application is not in correct state.";
+      this.code = `${Update.UC_CODE}UuNewsIsNotInCorrectState`;
+      this.message = "uuNews is not in correct state.";
     }
   },
+
   NewspaperDaoUpdateFailed: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
@@ -138,21 +131,7 @@ const Update = {
       this.message = "Update newspaper by newspaper DAO update failed.";
     }
   },
-  NewspaperUpdateDtoInType: class extends NewsMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Update.UC_CODE}NewspaperUpdateDtoInType`;
-      this.message = "Update newspaper by  DAO create failed.";
-    }
-  },
 
-  newspaperDaoUpdateFailed: class extends NewsMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Update.UC_CODE}NewspaperDaoUpdateFailed`;
-      this.message = "Update newspaper by newspaper Dao update failed.";
-    }
-  },
   UuObjectNewspaperDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
@@ -175,7 +154,6 @@ const Update = {
     }
   },
 };
-
 
 const List = {
   UC_CODE: `${NEWSPAPER_ERROR_PREFIX}list/`,
@@ -207,50 +185,42 @@ const List = {
 const Delete = {
   UC_CODE: `${NEWSPAPER_ERROR_PREFIX}delete/`,
 
-  uuNewsDoesNotExist: class extends NewsMainUseCaseError {
+  UuNewsDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Delete.UC_CODE}uuNewsDoesNotExist`;
+      this.code = `${Delete.UC_CODE}UuNewsDoesNotExist`;
       this.message = "uuNews does not exist.";
     }
   },
 
-  uuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
+  UuNewsIsNotInCorrectState: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Delete.UC_CODE}uuNewsIsNotInCorrectState`;
-      this.message = "\tuuNews is not in correct state.";
+      this.code = `${Delete.UC_CODE}UuNewsIsNotInCorrectState`;
+      this.message = "uuNews is not in correct state.";
     }
   },
 
-  uuObjectNewspaperDoesNotExist: class extends NewsMainUseCaseError {
+  UuObjectNewspaperDoesNotExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}uuObjectNewspaperDoesNotExist`;
-      this.message = "uuObjectNewspaperDoesNotExist  does not exist";
+      this.code = `${Delete.UC_CODE}UuObjectNewspaperDoesNotExist`;
+      this.message = "uuObject Newspaper does not exist";
     }
   },
 
-  articleDaoGetCountByNewspaperFailed: class extends NewsMainUseCaseError {
+  RelatedArticlesExist: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Delete.UC_CODE}articleDaoGetCountByNewspaperFailed`;
-      this.message = "Get count by article Dao getCountByNewspaper failed.";
-    }
-  },
-
-  relatedArticlesExist: class extends NewsMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Delete.UC_CODE}relatedArticlesExist`;
+      this.code = `${Delete.UC_CODE}RelatedArticlesExist`;
       this.message = "Newspaper contains articles.";
     }
   },
 
-  newspaperDaoDeleteFailed: class extends NewsMainUseCaseError {
+  NewspaperDaoDeleteFailed: class extends NewsMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Delete.UC_CODE}newspaperDaoDeleteFailed`;
+      this.code = `${Delete.UC_CODE}NewspaperDaoDeleteFailed`;
       this.message = "Delete newspaper by newspaper Dao delete failed.";
     }
   },
@@ -261,5 +231,5 @@ module.exports = {
   Create,
   Get,
   Update,
-  List
+  List,
 };

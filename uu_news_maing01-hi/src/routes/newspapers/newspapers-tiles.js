@@ -3,22 +3,21 @@ import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Uu5Tiles from "uu5tilesg02";
 import Config from "../config/config";
-import CustomTile from "./custom-tile";
+import NewspapersCustomTile from "./newspapers-custom-tile";
 import useNewspapers from "../newspapers/context/use-newspapers";
-import {useContextModal} from "../../common/modal-manager";
-import {ItemUpdateControls, ItemUpdateForm, ItemUpdateHeader} from "./newspapers-update-form/newspapers-update-form";
-
+import { useContextModal } from "../../common/modal-manager";
+import { ItemUpdateControls, ItemUpdateForm, ItemUpdateHeader } from "./newspapers-update-form/newspapers-update-form";
+import Lsi from "../../config/lsi";
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "Tiles",
+  displayName: Config.TAG + "NewspapersTiles",
   nestingLevel: "bigBoxCollection",
   //@@viewOff:statics
 };
 
-
-export const Tiles = createVisualComponent({
+export const NewspapersTiles = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -32,10 +31,8 @@ export const Tiles = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:hooks
-    const { data, handlerMap: listHandlerMap } = useNewspapers();
+    const { data } = useNewspapers();
     const [open, close, showAlert, getConfirmRef] = useContextModal();
-
     //@@viewOff:hooks
 
     //@@viewOn:private
@@ -55,11 +52,14 @@ export const Tiles = createVisualComponent({
     return (
       <div>
         <Uu5Tiles.ControllerProvider data={data}>
-        <UU5.Bricks.Container>
+          <UU5.Bricks.Container>
+            <UU5.Bricks.Header level={3}>
+              <UU5.Bricks.Lsi lsi={Lsi.newspaper.header} />
+            </UU5.Bricks.Header>
             <Uu5Tiles.Grid tileHeight={"row"} tileMinWidth={1000} tileMaxWidth={1600} tileSpacing={20} rowSpacing={20}>
-              <CustomTile  getConfirmRef={getConfirmRef} handleOpenDetailsModal={handleOpenDetailsModal}/>
+              <NewspapersCustomTile getConfirmRef={getConfirmRef} handleOpenDetailsModal={handleOpenDetailsModal} />
             </Uu5Tiles.Grid>
-        </UU5.Bricks.Container>
+          </UU5.Bricks.Container>
         </Uu5Tiles.ControllerProvider>
       </div>
     );
@@ -67,4 +67,4 @@ export const Tiles = createVisualComponent({
   },
 });
 
-export default Tiles;
+export default NewspapersTiles;
